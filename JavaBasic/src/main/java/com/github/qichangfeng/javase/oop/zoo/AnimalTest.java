@@ -1,4 +1,4 @@
-package com.github.qichangfeng.javase.oop;
+package com.github.qichangfeng.javase.oop.zoo;
 
 public class AnimalTest {
     public static void main(String[] args) {

@@ -1,4 +1,4 @@
-package com.github.qichangfeng.javase.oop;
+package com.github.qichangfeng.javase.oop.school;
 
 public class Student {
     private String name;

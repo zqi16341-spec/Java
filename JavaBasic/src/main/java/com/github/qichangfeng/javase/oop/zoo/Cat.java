@@ -1,4 +1,4 @@
-package com.github.qichangfeng.javase.oop;
+package com.github.qichangfeng.javase.oop.zoo;
 
 public class Cat extends Animal{
     public Cat(String name, int age) {

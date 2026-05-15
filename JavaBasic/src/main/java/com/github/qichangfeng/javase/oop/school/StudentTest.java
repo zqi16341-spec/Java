@@ -1,4 +1,4 @@
-package com.github.qichangfeng.javase.oop;
+package com.github.qichangfeng.javase.oop.school;
 
 public class StudentTest {
     public static void main(String[] args) {
