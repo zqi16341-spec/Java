@@ -2,6 +2,17 @@
 
 这个文件用来记录每天的 Java 学习过程、练习代码、卡住的问题和复习重点。
 
+## 仓库导航
+
+- `JavaBasic/README.md`：JavaSE 练习代码模块说明。
+- `docs/javase/README.md`：JavaSE 各阶段文档索引。
+- `docs/javase/01-basic-syntax/README.md`：基础语法。
+- `docs/javase/02-array/README.md`：数组。
+- `docs/javase/03-oop/README.md`：面向对象。
+- `docs/javase/04-api/README.md`：常用 API。
+- `docs/javase/05-leetcode/README.md`：力扣和算法练习。
+- `docs/javase/06-projects/README.md`：综合练习和小项目。
+
 ## 记录模板
 
 ```md
