@@ -406,3 +406,256 @@ s.swim();
 ### 明天要复习或继续做
 - 对多态需要更多使用理解，重刷5.14的26、27两题以及5.15的153
 - 有余力的情况下推进集合学习
+
+
+## 2026-05-16 Day3
+
+### 今天学了什么
+基本扎实面向对象基础，完成常用API复盘
+
+一点基础知识扫盲
+
+### return
+
+return 是方法把结果交还给调用者的方式。
+
+return 会结束方法。
+有返回值的方法，return 后面要跟一个值。
+void 方法可以写 return;，但不能 return 值。
+方法返回的值，外面要用变量接住，或者直接使用。
+只写 change(a); 不会自动改变 a。
+写 a = change(a); 才是用返回值更新 a。
+
+### 基本数据类型
+
+八大基本数据类型
+
+```
+byte     整数，范围最小
+short    整数
+int      整数，最常用
+long     整数，范围更大
+float    单精度小数
+double   双精度小数，最常用
+char     单个字符
+boolean  true / false
+```
+
+​    变量里直接存值
+​    赋值复制值
+​    == 比较值
+​    默认值不是 null
+
+### 引用数据类型
+
+​    String、数组、类、接口、对象
+​    变量里存对象地址
+​    赋值复制地址
+​    == 比较地址
+​    默认值是 null
+
+Java 方法传参时，传进去的不是变量本身，而是变量里面的值的一份复制。
+
+### final
+
+final 即最终的、不能变的。
+
+------
+
+修饰变量时变量一旦赋值，不能再改。
+
+常量通常这样写：
+
+```java
+public static final int MAX_SCORE = 100; 
+```
+
+为什么是 static final？
+
+```java
+static：属于类，不需要创建对象 final：不能被修改 
+```
+
+调用：
+
+```java
+System.out.println(Student.MAX_SCORE); 
+```
+
+------
+
+修饰方法时方法不能被子类重写。
+
+理解：final 方法 = 不允许子类改写
+
+修饰类时类不能被继承。
+
+```java
+public final class String { } 
+```
+
+所以 Java 的 String 类不能被继承。
+
+理解：final 类 = 到此为止，不能有子类
+
+## API
+
+### String
+
+String是一个类
+
+在比较字符串内容时不能用s1==s2
+
+要用s1.equals(s2)
+
+忽略大小写比较用s1.equalsIgnoreCase(s2)
+
+```java
+获取长度String str = "hello";
+
+System.out.println(str.length());
+```
+
+```java
+数组长度获取为arr.length//属性
+字符串是str.length()//方法
+```
+
+遍历字符串
+
+```java
+charAt(index)
+```
+
+```java
+String str = "hello";
+
+for (int i = 0; i < str.length(); i++) {
+    char c = str.charAt(i);
+    System.out.println(c);
+}
+```
+
+查找：判断是否包含
+
+```java
+String str = "hello java";
+
+System.out.println(str.contains("java")); // true
+```
+
+```java
+查找第一次出现的位置，没有则返回-1：
+System.out.println(str.indexOf("java")); // 6
+```
+
+截取
+
+```java
+String str = "hello java";
+//从指定位置截取到最后
+String s1 = str.substring(6);
+System.out.println(s1); // java
+//截取指定范围
+String s2 = str.substring(0, 5);
+System.out.println(s2); // hello
+
+substring(开始下标, 结束下标)
+包含开始，不包含结束
+```
+
+替换
+
+```java
+String str = "hello java";
+
+String newStr = str.replace("java", "mysql");
+
+System.out.println(newStr); // hello mysql、
+
+注意：String 不可变。
+str.replace("java", "mysql");
+System.out.println(str); // 还是 hello java
+```
+
+
+
+以下用法少见
+
+分割
+
+```java
+String str = "张三,李四,王五";
+
+String[] names = str.split(",");
+
+for (int i = 0; i < names.length; i++) {
+    System.out.println(names[i]);
+}
+```
+
+此时输出
+
+```java
+张三
+李四
+王五
+```
+
+判断开头结尾
+
+```java
+String file = "test.java";
+
+System.out.println(file.endsWith(".java")); // true
+System.out.println(file.startsWith("test")); // true
+```
+
+去掉前后空格
+
+```java
+String str = "  hello  ";
+
+System.out.println(str.trim()); // hello
+```
+
+### StringBuilder
+
+在频繁拼接的场景中，String会创建很多用不上的新字符串，此时使用方法append（），会直接生成一个空间，拼接后续字符串
+
+```java
+StringBuilder sb = new StringBuilder();
+
+for (int i = 0; i < 100; i++) {
+    sb.append(i);
+}
+
+String result = sb.toString();//StringBuilder创建一个空间，toString（）方法为创建一个对象接受空间内内容
+```
+
+反转
+
+```java
+String str = "abc";
+
+String reversed = new StringBuilder(str).reverse().toString();//链式编程
+
+System.out.println(reversed); // cba
+```
+
+### 今天写了什么代码
+- leetcode二刷35,66题，新攻破154题
+- 在school包中再次熟悉多态框架，虽然还是感觉理解没到位，但目前的水平也很难再有新理解，选择推进学习
+
+### 卡住的问题
+- 对二分遍历的左右边界理解有待加强在154题一开始通过的代码中，我的代码最后可能使右边界一直减到-1，这不合法。
+- 二刷66题“加一”时我没有写清连续进一的框架，它应该是先判断是否进一，当位变化之后要继续判断下一位并在合适的位置停止。
+- 在继承的基础上改写并练习多态时出现结构性问题，需要明确整体结构后按先父类再子类的路径完成需求。
+
+### 我现在的理解
+- 在寻找元素这样的题目中，while条件更多的会用到=而非单独的大于或小于
+- 153与154的区别在升序数组的元素会不会有重复，这会让最差情况的二分遍历的时间复杂度与直接遍历一样变成O（n），但在大部分正常情况下会是O（logn），有的需求里面不会写的隐性条件需要认真体会差距才能完成。
+
+### 明天要复习或继续做
+- 完成StringBuilder练习，进入ArrayList
+- 能在不看思路与示例的情况下做出66题

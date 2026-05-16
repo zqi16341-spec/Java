@@ -1,33 +1,20 @@
 package com.github.qichangfeng.javase.oop.school;
 
-public class Student {
-    private String name;
-    private int age;
+public class Student extends Person{
     private int[] scores;
 
     public Student(){
-
+        super();
     }
 
-
-    public String getName() {
-        return name;
+    public Student(String name,int age,int[]scores){
+        super(name , age);
+        setScores(scores);
     }
 
-    public void setName(String name) {
-        this.name = name;
-    }
-
-    public int getAge() {
-        return age;
-    }
-
-    public void setAge(int age) {
-        if(age<0||age>150) {
-            System.out.println("年龄不合法");
-            return;
-        }
-        this.age = age;
+    @Override
+    public void work() {
+        System.out.println(getName()+"在上课");
     }
 
     public int[] getScores() {
@@ -42,14 +29,9 @@ public class Student {
         this.scores = scores;
     }
 
-    public Student(String name, int age, int[] scores) {
-        this.name = name;
-        setAge(age);
-        setScores(scores);
-    }
     public void showInfo(){
-        System.out.println("姓名为：" + this.name);
-        System.out.println("年龄为：" + this.age) ;
+        System.out.println("姓名为：" + this.getName());
+        System.out.println("年龄为：" + this.getAge()) ;
         System.out.print("成绩为：");
         if(scores==null||scores.length==0){
             System.out.println("[]");
