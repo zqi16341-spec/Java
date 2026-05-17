@@ -659,3 +659,117 @@ System.out.println(reversed); // cba
 ### 明天要复习或继续做
 - 完成StringBuilder练习，进入ArrayList
 - 能在不看思路与示例的情况下做出66题
+
+
+## 2026.05.17  Day4
+
+## 集合
+
+### ArrayList
+
+普通数组：
+
+```java
+int[] arr = new int[3];
+```
+
+长度固定，创建之后不能变。
+
+ArrayList：
+
+```java
+ArrayList<String> list = new ArrayList<>();//尖括号内为泛型，String即存字符串
+```
+
+可以不断 add，长度会变。
+
+```java
+ArrayList<Integer> nums = new ArrayList<>();//整数
+```
+
+集合里不能直接写基本数据类型而是包装类，常见对应关系如下
+
+`int     -> Integer`
+`double  -> Double`
+`char    -> Character`
+`boolean -> Boolean`
+
+增：add
+
+```java
+ArrayList<String> list = new ArrayList<>();
+
+list.add("Java");
+list.add("MySQL");
+list.add("Spring");
+```
+
+如果要在指定位置添加，则
+
+```java
+list.add(1, "Redis");
+```
+
+该下标不可越界，只能在0到加上该内容本身所能包含的范围
+
+删：remove
+
+```java
+list.remove("MySQL");//按元素删除
+```
+
+```java
+list.remove(0);//按下标删除
+```
+
+需要注意
+
+```java
+ArrayList<Integer> nums = new ArrayList<>();
+nums.add(10);
+nums.add(20);
+nums.add(30);
+
+nums.remove(1);//这里删除的是下标1，即20
+//如果想删除数字20，形如
+nums.remove(Integer.valueOf(20));
+```
+
+改：set
+
+```java
+list.set(1, "Redis");//把下标1的元素改成Redis
+```
+
+查：get
+
+```java
+String name = list.get(0);//获取下标0的元素
+```
+
+获取长度
+
+```java
+list.size()
+```
+
+判断是否包含
+
+```java
+boolean exists = list.contains("Java");//判断集合中是否包含此字符串
+```
+
+判断是否为空
+
+```java
+if (list.isEmpty()) {
+    System.out.println("集合为空");
+}
+```
+
+清空集合
+
+```java
+list.clear();
+```
+
