@@ -663,8 +663,6 @@ System.out.println(reversed); // cba
 
 ## 2026.05.17  Day4
 
-## 集合
-
 ### ArrayList
 
 普通数组：
@@ -773,3 +771,200 @@ if (list.isEmpty()) {
 list.clear();
 ```
 
+## 2026.05.18 Day5
+
+###### 2026.5.18
+
+![插入图片方法](E:\1\Documents\JavaSE\ScreenShot_2026-05-18_151019_687.png)
+
+严肃学习插入图片
+
+###  Math 类
+
+Math 是数学工具类，里面的方法基本都是 static，所以直接用类名调用。
+
+```java
+Math.abs(-10);      // 绝对值，10 
+Math.max(10, 20);   // 两者最大值，20 
+Math.min(10, 20);   // 最小值，10 
+Math.pow(2, 3);     // 2 的 3 次方，8.0 
+Math.sqrt(16);      // 平方根，4.0 
+Math.ceil(3.2);     // 向上取整，4.0 
+Math.floor(3.8);    // 向下取整，3.0 
+Math.round(3.5);    // 四舍五入，4 
+Math.random();      // [0.0, 1.0) 随机小数
+```
+
+### System 类
+
+获取当前时间毫秒值(UTF-8即东八区标准时)
+
+```java
+long start = System.currentTimeMillis(); 
+// 执行一些代码 long end = System.currentTimeMillis(); System.out.println("耗时：" + (end - start) + "毫秒");
+```
+
+常用于简单统计代码运行时间。
+
+数组拷贝
+
+```java
+int[] src = {1, 2, 3, 4, 5}; 
+int[] dest = new int[5]; 
+System.arraycopy(src, 0, dest, 0, 5);
+//System.arraycopy(源数组, 源数组起始位置, 目标数组, 目标数组起始位置, 拷贝个数);
+```
+
+退出程序
+
+```java
+System.exit(0);
+```
+
+### Runtime 类
+
+Runtime 表示 Java 程序运行时环境。
+
+获取 Runtime 对象：
+
+```java
+Runtime runtime = Runtime.getRuntime();
+```
+
+常见方法：
+
+```java
+runtime.availableProcessors(); // 获取 CPU 线程数 
+runtime.maxMemory();           // JVM 最大可用内存 
+runtime.totalMemory();         // JVM 当前总内存 
+runtime.freeMemory();          // JVM 当前空闲内存
+```
+
+### Object 类
+
+Object 是 Java 中所有类的顶级父类。
+
+也就是说，任何类默认都继承 Object。
+
+```
+public class Student { }
+```
+
+本质上可以理解为：
+
+```
+public class Student extends Object { }
+```
+
+所以所有对象都有 Object 里的方法
+
+toString()
+
+默认情况下，直接打印对象：
+
+```
+Student s = new Student(); System.out.println(s);
+```
+
+如果没有重写 toString()，输出通常类似：
+
+```
+com.xxx.Student@1b6d3586
+```
+
+这是类名 + 地址相关信息。
+
+所以可以重写 toString()：
+
+```java
+public class Student {
+	private String name;    
+   	private int age;
+	@Override
+	public String toString() {
+		return"Student{name='" + name + "', age=" + age + "}";
+	} 
+}
+```
+
+这样打印对象时更清楚。
+
+equals()
+
+默认的 equals() 比较的是对象地址，和 == 类似。
+
+```java
+Student s1 = new Student("张三", 18); 
+Student s2 = new Student("张三", 18); 
+System.out.println(s1 == s2);      // false 
+System.out.println(s1.equals(s2)); // 默认也是 false
+```
+
+因为 s1 和 s2 是两个不同对象。
+
+如果想按照内容比较，需要重写 equals()。
+
+String 已经重写了 equals，所以字符串比较内容用 equals。 自定义类如果不重写 equals，默认比较地址。
+
+###  Objects 类
+
+Objects 是工具类，常用于安全比较和判空。
+
+需要导包：
+
+```java
+import java.util.Objects;
+```
+
+安全比较
+
+```java
+Objects.equals(a, b);
+```
+
+它相对object里的equals的好处是可以避免空指针异常。
+
+比如：
+
+```java
+String a = null; String b = "java"; 
+System.out.println(Objects.equals(a, b)); // false
+```
+
+如果写：
+
+```java
+a.equals(b);
+```
+
+会报空指针异常，因为 a 是 null。
+
+------
+
+判断是否为空
+
+```java
+Objects.isNull(obj); Objects.nonNull(obj);
+```
+
+例子：
+
+```java
+String str = null; 
+System.out.println(Objects.isNull(str));  // true 
+System.out.println(Objects.nonNull(str)); // false
+```
+
+------
+
+### 克隆
+
+克隆就是复制一个对象。
+
+原对象 -> 复制出一个新对象
+
+浅克隆会复制对象本身，但如果对象里面有引用类型成员变量，引用对象不会被真正复制。基本数据类型的数据会保留，引用数据类型的数据会指向同一地址，被克隆的数据改变，克隆之后的数据也会一起改变。
+
+深克隆会把对象内部引用的对象也一起复制。即创建一个新的引用数据类型对象，并按照被克隆的对象赋值。
+
+所以两个对象完全独立。
