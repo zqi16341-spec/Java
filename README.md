@@ -968,3 +968,187 @@ System.out.println(Objects.nonNull(str)); // false
 深克隆会把对象内部引用的对象也一起复制。即创建一个新的引用数据类型对象，并按照被克隆的对象赋值。
 
 所以两个对象完全独立。
+
+## 2026-05-19 Day06
+
+### BigInteger
+
+BigInteger 用于处理超出普通整数范围的大整数。
+
+普通整数类型范围有限：
+
+int 有范围限制
+long 也有范围限制
+
+当数字特别大时，可以使用：
+
+```
+BigInteger
+```
+
+常见操作不是用 + - * /，而是调用方法：
+
+```java
+BigInteger a = new BigInteger("12345678901234567890"); BigInteger b = new BigInteger("10"); System.out.println(a.add(b)); System.out.println(a.subtract(b)); System.out.println(a.multiply(b)); System.out.println(a.divide(b));
+```
+
+BigInteger 不是基本数据类型，运算需要调用方法。
+
+### BigDecimal
+
+BigDecimal 用于解决浮点数精度问题。
+
+例如：
+
+```java
+System.out.println(0.1 + 0.2);
+```
+
+结果可能不是精确的 0.3。
+
+原因：
+
+```
+double 和 float 使用二进制表示小数，某些十进制小数无法精确表示。
+```
+
+使用 BigDecimal 时推荐用字符串创建：
+
+```java
+BigDecimal a = new BigDecimal("0.1"); 
+BigDecimal b = new BigDecimal("0.2"); 
+System.out.println(a.add(b));
+```
+
+涉及金额、精确小数计算时，优先考虑 BigDecimal。
+
+不建议用：
+
+```java
+new BigDecimal(0.1)//不带引号则是基本数据类型
+```
+
+因为传入的 0.1 本身已经可能是不精确的 double。
+
+### 正则表达式
+
+正则表达式用于匹配符合规则的字符串。
+
+正则不是普通字符串比较，而是按规则匹配。
+
+常见场景：
+
+- 判断手机号格式。
+- 判断邮箱格式。
+- 判断身份证格式。
+- 提取文本中的特定内容。
+- 替换符合规则的内容。
+
+示例：
+
+```java
+String phone = "13812345678"; 
+boolean result = phone.matches("1[3-9]\\d{9}"); 
+System.out.println(result);
+```
+
+### 爬虫
+
+今天接触到爬虫相关内容，主要是从文本或网页内容中提取符合规则的信息。
+
+核心思路：
+
+获取一段文本
+
+使用正则表达式匹配目标内容
+
+提取匹配结果
+
+## 集合进阶
+
+### Collection
+
+Collection 是单列集合的顶层接口。
+
+常见方法：
+
+```
+add() remove() contains() isEmpty() size() clear()
+```
+
+示例：
+
+```
+Collection<String> c = new ArrayList<>(); c.add("Java"); c.add("MySQL"); c.add("Java"); System.out.println(c); System.out.println(c.contains("Java")); System.out.println(c.size());
+```
+
+Collection 是接口，不能直接 new。 需要通过它的实现类创建对象，例如 ArrayList。
+
+```java
+Collection<String> c = new ArrayList<>();
+```
+
+左边是接口类型，右边是具体实现类对象。
+
+### Iterator  迭代器
+
+迭代器是集合的一种通用遍历方式。
+
+基本写法：
+
+```java
+Iterator<String> it = c.iterator(); 
+while (it.hasNext()) {    
+    String s = it.next();   
+    System.out.println(s); 
+}
+```
+
+核心方法：
+
+hasNext()：判断当前位置后面是否还有元素。
+
+next()：取出下一个元素，并把指针向后移动。
+
+`next() 不能随便多调用。 每调用一次 next，指针都会移动。`
+
+错误示例：
+
+```java
+while (it.hasNext()) {    
+System.out.println(it.next());    
+System.out.println(it.next()); }
+```
+
+这样一次循环里调用两次 next()，可能会跳过元素，甚至没有下一个元素时报错。
+
+### 增强 for
+
+增强 for 是简化版遍历。
+
+基本写法：
+
+```java
+for (String s : c) {    
+    System.out.println(s); 
+}
+```
+
+含义：
+
+依次从集合 c 中取出每一个元素，赋值给变量 s。
+
+遍历过程中不要直接增删集合元素，否则可能出现并发修改异常。
+
+适合场景：
+
+只读取元素，不需要下标，不需要在遍历过程中修改集合。
+
+### Lambda 表达式
+
+Lambda 是一种更简洁的写法，常用于集合的 forEach 遍历。
+
+```java
+c.forEach(s -> System.out.println(s));
+```
+
