@@ -1155,3 +1155,295 @@ c.forEach(s -> System.out.println(s));
 ## 2026.05.20
 
 今日状态不佳，学习推进效果欠佳，明日恢复状态进行复盘并学完集合进阶
+
+
+## 2026.05.21 Day7
+
+### List 常见方法
+
+List 是有序、可重复的集合。
+
+常见实现类：
+
+```
+ArrayList LinkedList
+```
+
+常用方法：
+
+```java
+add(E e)              添加元素 
+add(int index, E e)   指定位置添加 
+remove(int index)     按下标删除 
+remove(Object o)      按元素删除 
+set(int index, E e)   修改指定位置元素 
+get(int index)        获取指定位置元素 
+size()                获取集合长度 
+contains(Object o)    判断是否包含 
+isEmpty()             判断是否为空 
+clear()               清空集合
+```
+
+例子：
+
+```
+List<String> list = new ArrayList<>(); list.add("Java"); list.add("MySQL"); list.add("Java"); System.out.println(list.get(0)); // Java list.set(1, "Redis"); list.remove("Java"); System.out.println(list.size());
+```
+
+List 特点：
+
+```
+有序：存进去什么顺序，取出来一般还是什么顺序 可重复：可以存多个相同元素 有索引：可以 get(0)、set(1,...)
+```
+
+------
+
+### List 五种遍历方式
+
+假设：
+
+```
+List<String> list = new ArrayList<>(); list.add("Java"); list.add("MySQL"); list.add("Redis");
+```
+
+**方式 1：普通 for**
+
+```
+for (int i = 0; i < list.size(); i++) {    System.out.println(list.get(i)); }
+```
+
+特点：
+
+```
+可以拿到索引 适合需要下标的场景
+```
+
+------
+
+**方式 2：增强 for**
+
+```
+for (String s : list) {    System.out.println(s); }
+```
+
+特点：
+
+```
+写法简单 适合只看元素，不关心下标
+```
+
+------
+
+**方式 3：迭代器 Iterator**
+
+```
+Iterator<String> it = list.iterator(); while (it.hasNext()) {    String s = it.next();    System.out.println(s); }
+```
+
+需要导包：
+
+```
+import java.util.Iterator;
+```
+
+特点：
+
+```
+集合通用遍历方式 适合遍历时安全删除元素
+```
+
+删除示例：
+
+```java
+Iterator<String> it = list.iterator(); 
+while (it.hasNext()) {    
+    String s = it.next();     
+    if ("Java".equals(s)) {        
+        it.remove();    
+    }
+}
+```
+
+注意：用迭代器遍历时，不要直接：
+
+```
+list.remove(s);
+```
+
+要用：
+
+```
+it.remove();
+```
+
+------
+
+**方式 4：Lambda forEach**
+
+```
+list.forEach(s -> System.out.println(s));
+```
+
+简写：
+
+```
+list.forEach(System.out::println);
+```
+
+**方式 5：ListIterator**
+
+```java
+ListIterator<String> it = list.listIterator();
+while (it.hasNext()) {    
+    String s = it.next();    
+    System.out.println(s); 
+}
+```
+
+需要导包：
+
+```java
+import java.util.ListIterator;
+```
+
+它比普通 Iterator 多一些功能：
+
+可以向前遍历 可以添加元素 可以修改元素
+
+例子：
+
+```java
+ListIterator<String> it = list.listIterator(); 
+while (it.hasNext()) {    
+	String s = it.next();     
+	if ("MySQL".equals(s)) {
+		it.set("Redis");
+	} 
+}
+```
+
+------
+
+### 常见数据结构
+
+**数组 Array**
+
+连续空间 有下标 查询快 增删慢
+
+但如果要在中间插入，需要移动很多元素。
+
+------
+
+**链表 Linked List**
+
+一个节点连着下一个节点 查询慢 增删相对快
+
+单向链表：
+
+```
+10 -> 20 -> 30 -> null
+```
+
+双向链表：
+
+```
+null <- 10 <-> 20 <-> 30 -> null
+```
+
+LinkedList 底层是双向链表。
+
+------
+
+**栈 Stack**
+
+特点：
+
+```
+先进后出 后进先出
+```
+
+像一摞盘子：
+
+```
+最后放上去的，最先拿走
+```
+
+英文：
+
+```
+LIFO = Last In First Out
+```
+
+常见操作：
+
+```
+push 入栈 pop 出栈 peek 查看栈顶
+```
+
+**ArrayList 源码核心思想**
+
+你不用背源码，先理解这几点：
+
+ArrayList 底层是数组 默认容量不是无限的 添加元素时，如果容量不够，会扩容 扩容本质是创建新数组，把旧数据复制过去
+
+简化理解：
+
+ArrayList = 会自动扩容的数组
+
+比如：
+
+```java
+ArrayList<String> list = new ArrayList<>();
+```
+
+不断：
+
+```java
+list.add("A"); list.add("B"); list.add("C");
+```
+
+底层数组满了之后，会：
+
+1. 创建一个更大的新数组
+2.  把旧数组元素复制过去
+3. 新元素继续添加
+
+所以：
+
+```
+查询快：有下标，直接找 增删慢：中间增删要移动元素
+```
+
+------
+
+### LinkedList 源码核心思想
+
+LinkedList 底层是双向链表。
+
+每个节点大概包含：
+
+`前一个节点地址 当前元素 后一个节点地址`
+
+`Node {    prev    item    next }`
+
+结构：
+
+```java
+null <- A <-> B <-> C -> null
+```
+
+所以：
+
+查询慢：要从头或尾一个个找 头尾增删快：改几个指针就行
+
+LinkedList 还可以当队列或双端队列用：
+
+```java
+LinkedList<String> list = new LinkedList<>(); 
+list.addFirst("A"); 
+list.addLast("B"); 
+System.out.println(list.getFirst()); 
+System.out.println(list.getLast()); 
+list.removeFirst(); list.removeLast();
+```
+
