@@ -1447,3 +1447,50 @@ System.out.println(list.getLast());
 list.removeFirst(); list.removeLast();
 ```
 
+## 2026.05.22 Day8
+
+今日完成前一段学习的闭环练习，“成就斐然”，今日学习内容为数据结构相关基础知识，以及泛型
+
+### 泛型
+
+泛型 = 限制集合里能放什么类型
+
+ArrayList<String> list = new ArrayList<>();
+
+表示这个集合只能放 String，
+
+泛型类：
+
+```java
+public class Box<T> {
+    private T value;
+
+    public void setValue(T value) {
+        this.value = value;
+    }
+    
+    public T getValue() {
+        return value;
+    }
+
+}
+```
+
+泛型方法：
+
+```java
+public static <T> void printArray(T[] arr) {
+    for (T item : arr) {
+        System.out.println(item);
+    }
+}
+```
+
+泛型接口：
+
+```java
+public interface Repository<T> {
+    void save(T data);
+}
+```
+
